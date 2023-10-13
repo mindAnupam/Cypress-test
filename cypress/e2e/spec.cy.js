@@ -1,7 +1,10 @@
 // type definitions for Cypress object "cy"
 /// <reference types="cypress" />
 
-describe('Google Homepage Test', () => {
+describe('Rahul Shetty Web Test', () => {
+
+const coursesIframe = '#courses-iframe';
+const displayedText = '#displayed-text';
 
 const getIframeDocument = () => {
   return cy.get('#courses-iframe')
@@ -18,29 +21,8 @@ const getIframeBody = () => {
     cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
   });
 
-  it('should perform a basic search', () => {
-    
-    // Type a search query and submit the form
-    cy.get('[title="Search"]').type(searchQuery).type('{enter}');
 
-    cy.vi
-
-    // Ensure search results are displayed
-    cy.get('#search').should('be.visible');
-
-    // Verify that the search results contain the query
-    cy.get('#search').should('include.text', searchQuery);
-  });
-
-  it('should switch to Google Images', () => {
-    // Click the "Images" link in the navigation bar
-    cy.contains('Images').click();
-
-    // Ensure the URL changes to the Images search page
-    cy.url().should('include', '/imghp');
-  });
-
-  it.only('should have a title', () => {
+  it('First Test', () => {
 
     //Assert title
     cy.title().should('eq','Practice Page');
@@ -50,19 +32,18 @@ const getIframeBody = () => {
 
     // ------------------------------------------
 
-    //Assert blinking text
-    cy.get('.blinkingText').should('have.text', 'Free Access to InterviewQues/ResumeAssistance/Material');
-
-    //Assert blinking text href
-    cy.get('.blinkingText').should('have.attr','href', 'https://rahulshettyacademy.com/documents-request');
+    //Assert binking text 'text' and href
+    cy.get('.blinkingText')
+    .should('have.text', 'Free Access to InterviewQues/ResumeAssistance/Material')
+    .should('have.attr', 'href', 'https://rahulshettyacademy.com/documents-request');
 
     // ---------------------------------------------------
 
     //Scroll IFrame in to view
-    cy.get('#courses-iframe').scrollIntoView();
+    cy.get(coursesIframe).scrollIntoView();
 
     //Assert that iframe is displayed
-    cy.get('#courses-iframe').should('be.visible');
+    cy.get(coursesIframe).should('be.visible');
 
     //Assert Iframe content
     getIframeBody().find('.login-btn > a').eq(0).should('have.text', 'Register');
@@ -79,11 +60,11 @@ const getIframeBody = () => {
     cy.get('[type="radio"]').check('radio3')
 
     //Assert that the radio button is selected
-    cy.get('[type="radio"]').eq(2).should('be.checked');
+    cy.get('[type="radio"]').eq(2).should('be.checked').and('have.value', 'radio3');
 
     // -----------------------------------------------
     //Get total no. of checkboxes
-    cy.get('#checkbox-example > fieldset > label').should('have.length', '3')
+    cy.get('#checkbox-example > fieldset > label').should('have.length', 3)
 
     cy.get('#checkbox-example > fieldset > label').should('have.length.below', 4)
 
@@ -98,37 +79,21 @@ const getIframeBody = () => {
     //Display
 
     //Assert that the input field is displayed by default
-    cy.get('#displayed-text').should('be.visible');
+    cy.get(displayedText).should('be.visible');
 
     //Click on the hide button
     cy.get('#hide-textbox').click();
 
     //Assert that it is hidden
-    cy.get('#displayed-text').should('be.hidden');
+    cy.get(displayedText).should('be.hidden');
 
     //Click on show button
     cy.get('#show-textbox').click();
 
      //Assert that it is visible
-     cy.get('#displayed-text').should('be.visible');
+     cy.get(displayedText).should('be.visible');
 
     //  ----------------------------------------------------------
-
-    //Hover
-
-    //Scroll to element
-    cy.get('#mousehover').scrollIntoView();
-
-    //Assert that dropdown is hidden by default
-    // cy.get('.mouse-hover').siblings('div').should('be.hidden') //Not working dunnoo why?
-    cy.get('.mouse-hover > div').should('be.hidden')
-
-    //Hover over text
-    cy.get('.mouse-hover').trigger('mouseover');
-
-    //Assert that the dropdown is visible
-    // cy.get('.mouse-hover > div').should('be.visible')
-
 
 
   });
