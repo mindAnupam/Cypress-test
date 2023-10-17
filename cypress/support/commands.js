@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import '@4tw/cypress-drag-drop'
+import 'cypress-file-upload';
+
+Cypress.Commands.add('login', () => {
+
+    //Navigate to the webpage
+    cy.visit('https://demoqa.com/automation-practice-form');
+    cy.once('uncaught:exception', () => false);
+
+    //Assert that the correct page is loaded
+    cy.url().should('eq', 'https://demoqa.com/automation-practice-form')
+
+})
